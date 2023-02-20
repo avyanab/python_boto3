@@ -1,10 +1,29 @@
 import boto3
 
-client = boto3.client('ec2')
+client = boto3.client('ec2', region_name='us-east-1')
 
-response = client.stop_instances(
-     InstanceIds=[
-        'string'
-    ]
+instance_tags = client.describe_instances(
+    Filters=[
+        {
+            'Name': 'tag:Environment',
+            'Values': [
+                'Dev',
+            ]
+        },
+        {
+            'Name': 'instance-state-name', 
+            'Values': [
+                'running',
+            ]
+        }    
+    ],
 )
-print(response)
+
+ids= [instance['InstanceId']
+    for reservation in instance_tags['Reservations']
+    for instance in reservation['Instances']]
+    
+response = client.stop_instances(
+        InstanceIds=ids
+)
+print("Stopped now", response)
