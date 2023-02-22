@@ -10,10 +10,10 @@ def lambda_handler(event, context):
     local_time = datetime.now(timezone.utc)
     queue = sqs.Queue(url='string')
     
-    response = queue.send_message(MessageBody=str(local_time))
+    queue.send_message(MessageBody=str(local_time))
     
     # TODO implement
     return {
         'statusCode': 200,
-        'body': json.dumps(response)
+        'body': json.dumps(local_time, default = str)
     }
