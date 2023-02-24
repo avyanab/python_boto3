@@ -10,10 +10,10 @@ def lambda_handler(event, context):
     time_msg = local_time.strftime('Hi! It is now %I:%M%p on %B %d, %Y.') # The local time will be formatted with a greeting
     queue = sqs.Queue(url='str') # Enter the URL of queue to work with
     
-    queue.send_message(MessageBody=time_msg) # Will send a message to queue with a greeting, current time and date
+    queue.send_message(MessageBody=time_msg) # Will send a message to queue with a greeting, current time and date in EST
     
     # TODO implement
     return {
         'statusCode': 200,
-        'body': json.dumps(local_time.strftime('%Y-%m-%d %H:%M'), default = str) # output will be current date, and 24hr time
+        'body': json.dumps(local_time.strftime('%Y-%m-%d %H:%M'), default = str) # output will be current date and 24hr time in EST
     }
