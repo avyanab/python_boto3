@@ -15,5 +15,5 @@ def lambda_handler(event, context):
     # TODO implement
     return {
         'statusCode': 200,
-        'body': json.dumps(local_time.strftime('%Y-%m-%d %H:%M'), default = str) # output will be current date and 24hr time in EST
+        'body': json.dumps(local_time.strftime('%Y-%m-%d %H:%M'), default = str) # output will be current date and 24hr time
     }
